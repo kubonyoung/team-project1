@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>점심 메뉴 추천</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <a href="index.html"> <img src="img/다운로드.jfif" alt="" /></a>
+        <nav>
+          <ul>
+            <li>
+              <a
+                href="https://joongbu.ac.kr/diet/index.es?mid=a10406030000&p=C&d=2026-04-07"
+                >오늘의 학식</a
+              >
+            </li>
+            <li id="divider">|</li>
+            <li><a href="team.html">팀소개</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <h2>오늘 점심 뭐 먹을까?</h2>
+        <p>버튼을 눌러 랜덤 메뉴를 추천받아 보세요!</p>
+        <button onclick="recommendMenu()">메뉴 추천</button>
+        <div id="result-card" class="menu-card hidden"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2026 점심 메뉴 추천 프로젝트</p>
+    </footer>
+    <script src="main.js"></script>
+  </body>
+</html>
