@@ -23,7 +23,7 @@ header img {
 }
 
 nav ul {
-  width: max-content; /* 글자 길이에 맞춰 자동 확장 */
+  width: max-content;
   font-size: larger;
   list-style: none;
   display: flex;
@@ -80,12 +80,10 @@ footer p {
   margin: 0;
 }
 
-/* 섹션 애니메이션 */
 .content-section {
   animation: fadeIn 0.4s ease-in-out;
 }
 
-/* 공통 버튼 */
 .btn-main {
   padding: 0.7rem 2rem;
   font-size: 1.1rem;
@@ -103,7 +101,6 @@ footer p {
   background-color: #7a0117;
 }
 
-/* 정산 컴포넌트 */
 .input-form {
   background-color: #fff;
   max-width: 400px;
@@ -138,7 +135,6 @@ footer p {
   padding-top: 1rem;
 }
 
-/* 카드 및 결과 레이아웃 */
 .menu-card {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -167,6 +163,32 @@ footer p {
   display: none !important;
 }
 
+.review-section {
+  max-width: 700px;
+  margin: 4rem auto 1rem auto;
+  padding-top: 2rem;
+  border-top: 2px dashed rgba(169, 1, 32, 0.2);
+}
+
+.comment-box {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+.api-guide-notice {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: #fcf8e3;
+  border: 1px solid #faebcc;
+  color: #8a6d3b;
+  border-radius: 4px;
+  line-height: 1.6;
+}
+
 /* --- 팀 소개 페이지 전용 정렬 스타일 --- */
 .team {
   max-width: 1000px;
@@ -178,7 +200,7 @@ footer p {
   justify-content: center;
   gap: 30px;
   margin-top: 2rem;
-  flex-wrap: wrap; /* 반응형 화면에서 카드가 아래로 안전하게 떨어지도록 설정 */
+  flex-wrap: wrap;
 }
 
 .team-card {
@@ -220,33 +242,40 @@ footer p {
   }
 }
 
-/* 모바일 반응형 */
+/* 📱 모바일 반응형 디자인 개선 (크기 축소 및 최적화) */
 @media (max-width: 700px) {
   header {
-    margin-bottom: 133px;
+    /* 메뉴가 늘어난 높이만큼 본문이 겹치지 않게 조절 */
+    margin-bottom: 95px;
   }
 
   .header-container {
     background-color: #fff;
     justify-content: center;
+    height: 70px; /* 헤더 로고 영역 높이 축소 */
+  }
+
+  header img {
+    height: 74px; /* 로고 이미지 크기 축소 */
   }
 
   nav ul {
     flex-direction: column;
     background-color: #fff;
     position: absolute;
-    top: 80px;
+    top: 65px; /* 줄어든 헤더 높이에 맞춤 */
     right: 0;
     width: 92.6%;
-    padding: 1rem;
+    padding: 0.4rem 1rem; /* 메뉴창 내부 여백 축소 */
     height: auto;
     z-index: 10;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
   nav li {
-    padding: 1rem 0;
+    padding: 0.5rem 0; /* 각 카테고리 줄간격 여백 대폭 축소 */
     text-align: center;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #eee;
     height: auto;
   }
 
@@ -256,11 +285,15 @@ footer p {
 
   nav a {
     color: #333;
-    font-size: 1.2rem;
+    font-size: 0.95rem; /* 글자 크기를 기존 1.2rem에서 0.95rem으로 줄임 */
   }
 
   #divider {
     display: none;
+  }
+
+  main {
+    padding: 1rem; /* 모바일 본문 여백 축소 */
   }
 
   .team-flex {
