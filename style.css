@@ -242,38 +242,38 @@ footer p {
   }
 }
 
-/* 📱 모바일 반응형 디자인 개선 (크기 축소 및 최적화) */
+/* 📱 모바일 반응형 디자인 (글씨 가림 현상 수정 버전) */
 @media (max-width: 700px) {
   header {
-    /* 메뉴가 늘어난 높이만큼 본문이 겹치지 않게 조절 */
-    margin-bottom: 95px;
+    /* 1. 카테고리가 늘어난 만큼 바닥 여백을 기존 95px에서 125px로 늘려 본문을 아래로 내림 */
+    margin-bottom: 125px;
   }
 
   .header-container {
     background-color: #fff;
     justify-content: center;
-    height: 70px; /* 헤더 로고 영역 높이 축소 */
+    height: 70px;
   }
 
   header img {
-    height: 74px; /* 로고 이미지 크기 축소 */
+    height: 74px;
   }
 
   nav ul {
     flex-direction: column;
     background-color: #fff;
     position: absolute;
-    top: 65px; /* 줄어든 헤더 높이에 맞춤 */
+    top: 65px;
     right: 0;
     width: 92.6%;
-    padding: 0.4rem 1rem; /* 메뉴창 내부 여백 축소 */
+    padding: 0.4rem 1rem;
     height: auto;
     z-index: 10;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
   nav li {
-    padding: 0.5rem 0; /* 각 카테고리 줄간격 여백 대폭 축소 */
+    padding: 0.5rem 0;
     text-align: center;
     border-bottom: 1px solid #eee;
     height: auto;
@@ -285,7 +285,7 @@ footer p {
 
   nav a {
     color: #333;
-    font-size: 0.95rem; /* 글자 크기를 기존 1.2rem에서 0.95rem으로 줄임 */
+    font-size: 0.95rem;
   }
 
   #divider {
@@ -293,7 +293,8 @@ footer p {
   }
 
   main {
-    padding: 1rem; /* 모바일 본문 여백 축소 */
+    /* 2. 본문 내용 자체의 상단 여백을 두 글자 분량(3.5rem) 정도 더 주어 글씨가 완벽하게 보이도록 조절 */
+    padding: 3.5rem 1rem 1rem 1rem;
   }
 
   .team-flex {
