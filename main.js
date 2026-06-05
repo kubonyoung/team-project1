@@ -253,7 +253,7 @@ const menus = [
     mainMenu: '대왕소세지 오므라이스',
     img: 'img/32. 오므라이스.jpg',
     price: '15,000원',
-    score_img: 'img/32. 오므라이스 평점.jpg',
+    score_img: 'img/32. 오므라이스.jpg',
   },
   {
     shop: '한식뷔페',
@@ -398,10 +398,13 @@ const menus = [
   },
 ]
 
+// 메뉴 추천 실행 함수
 function recommendMenu() {
   const randomIndex = Math.floor(Math.random() * menus.length)
   const menu = menus[randomIndex]
   const card = document.getElementById('result-card')
+
+  if (!card) return
 
   card.innerHTML = `
         <img src="${menu.img}" alt="${menu.name}">
@@ -409,8 +412,114 @@ function recommendMenu() {
         <h3>${menu.name}</h3>
         <p>${menu.mainMenu}</p>
         <p>${menu.price}</p>
-        <img src="${menu.score_img}" alt="">
+        ${menu.score_img ? `<img src="${menu.score_img}" alt="">` : ''}
       `
   card.classList.remove('hidden')
   card.classList.add('show')
 }
+
+// 메뉴 탭 전환 함수
+function showSection(sectionType) {
+  const recommendSec = document.getElementById('recommend-section')
+  const dutchSec = document.getElementById('dutch-section')
+
+  if (!recommendSec || !dutchSec) return
+
+  if (sectionType === 'recommend') {
+    recommendSec.classList.remove('hidden')
+    dutchSec.classList.add('hidden')
+  } else if (sectionType === 'dutch') {
+    recommendSec.classList.add('hidden')
+    dutchSec.classList.remove('hidden')
+  }
+}
+
+// 인원수 입력 시 참여자 이름 입력 칸을 동적으로 생성하는 함수
+function generateNameInputs() {
+  const peopleCount = parseInt(document.getElementById('total-people').value)
+  const container = document.getElementById('name-inputs-container')
+  if (!container) return
+  container.innerHTML = ''
+
+  if (isNaN(peopleCount) || peopleCount <= 0) return
+
+  const maxPeople = Math.min(peopleCount, 30)
+
+  for (let i = 0; i < maxPeople; i++) {
+    const inputWrapper = document.createElement('div')
+    inputWrapper.style.margin = '0.5rem 0'
+    inputWrapper.innerHTML = `
+      <input type="text" class="participant-name" placeholder="참여자 ${i + 1} 이름" style="padding:0.4rem; width:180px; border:1px solid #ccc; border-radius:4px;" />
+    `
+    container.appendChild(inputWrapper)
+  }
+}
+
+// 랜덤 정산 계산 함수
+function calculateRandomDutch() {
+  const totalPrice = parseInt(document.getElementById('total-price').value)
+  const totalPeople = parseInt(document.getElementById('total-people').value)
+  const resultDiv = document.getElementById('dutch-result')
+  const nameInputs = document.querySelectorAll('.participant-name')
+
+  if (
+    isNaN(totalPrice) ||
+    totalPrice <= 0 ||
+    isNaN(totalPeople) ||
+    totalPeople <= 0
+  ) {
+    alert('올바른 금액과 인원수를 입력해주세요!')
+    return
+  }
+  if (totalPeople > totalPrice / 10) {
+    alert('인원수가 너무 많습니다! (최소 1인당 10원 이상 필요)')
+    return
+  }
+
+  const memberNames = []
+  for (let i = 0; i < totalPeople; i++) {
+    const nameValue = nameInputs[i] && nameInputs[i].value.trim()
+    memberNames.push(nameValue || `참여자 ${i + 1}`)
+  }
+
+  let remainingPrice = totalPrice
+  let remainingPeople = totalPeople
+  const amounts = []
+
+  for (let i = 0; i < totalPeople - 1; i++) {
+    const maxAmount = remainingPrice - (remainingPeople - 1) * 10
+    let randomAmount = Math.floor(Math.random() * (maxAmount / 10)) * 10 + 10
+
+    amounts.push(randomAmount)
+    remainingPrice -= randomAmount
+    remainingPeople--
+  }
+  amounts.push(remainingPrice)
+  amounts.sort(() => Math.random() - 0.5)
+
+  const maxAmount = Math.max(...amounts)
+
+  let htmlContent = `<h3>정산 결과 </h3><ul style="list-style:none; padding:0; text-align:left; max-width:260px; margin:0 auto;">`
+  for (let i = 0; i < totalPeople; i++) {
+    const isMax = amounts[i] === maxAmount ? '👑 ' : ''
+    htmlContent += `<li style="padding: 0.6rem 0; border-bottom: 1px solid #eee; font-size:1.1rem;">
+      <strong>${memberNames[i]} :</strong> ${isMax}${amounts[i].toLocaleString()}원
+    </li>`
+  }
+  htmlContent += `</ul>`
+
+  if (resultDiv) {
+    resultDiv.innerHTML = htmlContent
+    resultDiv.classList.remove('hidden')
+    resultDiv.classList.add('show')
+  }
+}
+
+// [스마트 링크 처리] 다른 페이지(team.html 등)에서 주소 뒤에 파라미터를 들고 왔을 때 해당 탭을 열어주는 로직
+window.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search)
+  const tab = urlParams.get('tab')
+  if (tab) {
+    showSection(tab)
+  }
+})

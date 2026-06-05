@@ -19,6 +19,14 @@
               >
             </li>
             <li id="divider">|</li>
+            <li>
+              <a href="#" onclick="showSection('recommend')">메뉴 추천</a>
+            </li>
+            <li id="divider">|</li>
+            <li>
+              <a href="#" onclick="showSection('dutch')">랜덤 정산하기</a>
+            </li>
+            <li id="divider">|</li>
             <li><a href="team.html">팀소개</a></li>
           </ul>
         </nav>
@@ -26,11 +34,41 @@
     </header>
 
     <main>
-      <section class="intro">
+      <section id="recommend-section" class="content-section">
         <h2>오늘 점심 뭐 먹을까?</h2>
         <p>버튼을 눌러 랜덤 메뉴를 추천받아 보세요!</p>
-        <button onclick="recommendMenu()">메뉴 추천</button>
+        <button class="btn-main" onclick="recommendMenu()">메뉴 추천</button>
         <div id="result-card" class="menu-card hidden"></div>
+      </section>
+
+      <section id="dutch-section" class="content-section hidden">
+        <h2>랜덤 정산하기</h2>
+        <p>총 금액과 인원을 입력하고 참여자의 이름을 적어보세요!</p>
+
+        <div class="input-form">
+          <div class="input-row">
+            <label for="total-price">총 정산 금액 : </label>
+            <input type="number" id="total-price" placeholder="예: 50000" /> 원
+          </div>
+          <div class="input-row">
+            <label for="total-people">참여 인원수 : </label>
+            <input
+              type="number"
+              id="total-people"
+              placeholder="예: 4"
+              oninput="generateNameInputs()"
+            />
+            명
+          </div>
+
+          <div id="name-inputs-container" class="name-container"></div>
+
+          <button class="btn-main" onclick="calculateRandomDutch()">
+            정산하기
+          </button>
+        </div>
+
+        <div id="dutch-result" class="menu-card hidden"></div>
       </section>
     </main>
 
