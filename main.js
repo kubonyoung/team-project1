@@ -32,7 +32,7 @@ const menus = [
     mainMenu: '차돌왕짬뽕',
     img: 'img/4. 짬뽕.jpg',
     price: '12,000원',
-    score_img: 'img/3.4. 짜장, 짬뽕 평점.jpg',
+    score_img: 'img/3,4. 짜장, 짬뽕 평점.jpg',
     category: '중식',
   },
   {
@@ -264,7 +264,7 @@ const menus = [
     shop: '토스트',
     name: '토스트굽는사람들',
     mainMenu: '햄치즈토스트',
-    img: 'img/30. Toast.jpg',
+    img: 'img/30. 토스트.jpg',
     price: '4,100원',
     score_img: 'img/30. 토스트 평점.jpg',
     category: '분식',
