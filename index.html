@@ -9,7 +9,7 @@
   <body>
     <header>
       <div class="header-container">
-        <a href="index.html"> <img src="img/다운로드.jfif" alt="" /></a>
+        <a href="index.html"> <img src="img/다운로드.jfif" alt="로고" /></a>
         <nav>
           <ul>
             <li>
@@ -36,14 +36,18 @@
     <main>
       <section id="recommend-section" class="content-section">
         <h2>오늘 점심 뭐 먹을까?</h2>
-        <p>버튼을 눌러 랜덤 메뉴를 추천받아 보세요!</p>
-        <button class="btn-main" onclick="recommendMenu()">메뉴 추천</button>
+        <p>
+          버튼을 눌러 우리 팀이 엄선한 맛집 메뉴를 무작위로 추천받아 보세요!
+        </p>
+        <button class="btn-main" onclick="recommendMenu()">
+          메뉴 추천받기
+        </button>
         <div id="result-card" class="menu-card hidden"></div>
       </section>
 
       <section id="dutch-section" class="content-section hidden">
-        <h2>랜덤 정산하기</h2>
-        <p>총 금액과 인원을 입력하고 참여자의 이름을 적어보세요!</p>
+        <h2>랜덤 사다리타기 정산</h2>
+        <p>금액과 인원을 입력하면 랜덤으로 금액을 정산합니다!</p>
 
         <div class="input-form">
           <div class="input-row">
@@ -63,12 +67,20 @@
 
           <div id="name-inputs-container" class="name-container"></div>
 
-          <button class="btn-main" onclick="calculateRandomDutch()">
-            정산하기
+          <button class="btn-main" onclick="startLadderGame()">
+            사다리 생성하기
           </button>
         </div>
 
-        <div id="dutch-result" class="menu-card hidden"></div>
+        <div id="ladder-game-container" class="ladder-box hidden">
+          <p class="ladder-guide-text">
+            <strong>이름을 클릭</strong>하면 사다리타기 게임이 시작됩니다.
+          </p>
+          <div id="ladder-visual" class="ladder-visual-board">
+            <div id="ladder-lines-container" class="ladder-lines-area"></div>
+          </div>
+          <div id="dutch-result" class="menu-card hidden"></div>
+        </div>
       </section>
     </main>
 

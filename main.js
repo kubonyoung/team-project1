@@ -235,7 +235,7 @@ const menus = [
     shop: '토스트',
     name: '토스트굽는사람들',
     mainMenu: '햄치즈토스트',
-    img: 'img/30. 토스트.jpg',
+    img: 'img/30. Toast.jpg',
     price: '4,100원',
     score_img: 'img/30. 토스트 평점.jpg',
   },
@@ -253,7 +253,7 @@ const menus = [
     mainMenu: '대왕소세지 오므라이스',
     img: 'img/32. 오므라이스.jpg',
     price: '15,000원',
-    score_img: 'img/32. 오므라이스.jpg',
+    score_img: 'img/32. 오므라이스 평점.jpg',
   },
   {
     shop: '한식뷔페',
@@ -398,31 +398,14 @@ const menus = [
   },
 ]
 
-// 메뉴 추천 실행 함수
-function recommendMenu() {
-  const randomIndex = Math.floor(Math.random() * menus.length)
-  const menu = menus[randomIndex]
-  const card = document.getElementById('result-card')
+let ladderBridges = []
+let globalAssignments = []
+let globalNames = []
+let isLadderPlaying = false
 
-  if (!card) return
-
-  card.innerHTML = `
-        <img src="${menu.img}" alt="${menu.name}">
-        <h2>${menu.shop}</h2>
-        <h3>${menu.name}</h3>
-        <p>${menu.mainMenu}</p>
-        <p>${menu.price}</p>
-        ${menu.score_img ? `<img src="${menu.score_img}" alt="">` : ''}
-      `
-  card.classList.remove('hidden')
-  card.classList.add('show')
-}
-
-// 메뉴 탭 전환 함수
 function showSection(sectionType) {
   const recommendSec = document.getElementById('recommend-section')
   const dutchSec = document.getElementById('dutch-section')
-
   if (!recommendSec || !dutchSec) return
 
   if (sectionType === 'recommend') {
@@ -434,16 +417,35 @@ function showSection(sectionType) {
   }
 }
 
-// 인원수 입력 시 참여자 이름 입력 칸을 동적으로 생성하는 함수
+function recommendMenu() {
+  const randomIndex = Math.floor(Math.random() * menus.length)
+  const menu = menus[randomIndex]
+  const card = document.getElementById('result-card')
+  if (!card) return
+
+  const scoreImgTag = menu.score_img
+    ? `<img src="${menu.score_img}" alt="평점">`
+    : ''
+  card.innerHTML = `
+    <img src="${menu.img}" alt="${menu.name}">
+    <h2>${menu.shop}</h2>
+    <h3>${menu.name}</h3>
+    <p>${menu.mainMenu}</p>
+    <p>${menu.price}</p>
+    ${scoreImgTag}
+  `
+  card.classList.remove('hidden')
+  card.classList.add('show')
+}
+
 function generateNameInputs() {
   const peopleCount = parseInt(document.getElementById('total-people').value)
   const container = document.getElementById('name-inputs-container')
   if (!container) return
   container.innerHTML = ''
 
-  if (isNaN(peopleCount) || peopleCount <= 0) return
-
-  const maxPeople = Math.min(peopleCount, 30)
+  if (isNaN(peopleCount) || peopleCount < 2) return
+  const maxPeople = Math.min(peopleCount, 10)
 
   for (let i = 0; i < maxPeople; i++) {
     const inputWrapper = document.createElement('div')
@@ -455,67 +457,254 @@ function generateNameInputs() {
   }
 }
 
-// 랜덤 정산 계산 함수
-function calculateRandomDutch() {
+function startLadderGame() {
   const totalPrice = parseInt(document.getElementById('total-price').value)
-  const totalPeople = parseInt(document.getElementById('total-people').value)
-  const resultDiv = document.getElementById('dutch-result')
+  const peopleCount = parseInt(document.getElementById('total-people').value)
   const nameInputs = document.querySelectorAll('.participant-name')
 
-  if (
-    isNaN(totalPrice) ||
-    totalPrice <= 0 ||
-    isNaN(totalPeople) ||
-    totalPeople <= 0
-  ) {
-    alert('올바른 금액과 인원수를 입력해주세요!')
-    return
-  }
-  if (totalPeople > totalPrice / 10) {
-    alert('인원수가 너무 많습니다! (최소 1인당 10원 이상 필요)')
+  if (!totalPrice || !peopleCount || peopleCount < 2) {
+    alert('올바른 금액과 2명 이상의 인원수를 입력해주세요.')
     return
   }
 
-  const memberNames = []
-  for (let i = 0; i < totalPeople; i++) {
+  isLadderPlaying = false
+  globalNames = []
+  for (let i = 0; i < peopleCount; i++) {
     const nameValue = nameInputs[i] && nameInputs[i].value.trim()
-    memberNames.push(nameValue || `참여자 ${i + 1}`)
+    globalNames.push(nameValue || `참여자 ${i + 1}`)
   }
 
+  const gameContainer = document.getElementById('ladder-game-container')
+  const linesContainer = document.getElementById('ladder-lines-container')
+  const resultCard = document.getElementById('dutch-result')
+
+  gameContainer.classList.remove('hidden')
+  resultCard.classList.add('hidden')
+  linesContainer.innerHTML = ''
+
+  globalAssignments = Array(peopleCount).fill(0)
+
+  const luckyGuyIdx = Math.floor(Math.random() * peopleCount)
+
+  let remainingPayersCount = peopleCount - 1
   let remainingPrice = totalPrice
-  let remainingPeople = totalPeople
-  const amounts = []
+  let payerIndices = []
 
-  for (let i = 0; i < totalPeople - 1; i++) {
-    const maxAmount = remainingPrice - (remainingPeople - 1) * 10
-    let randomAmount = Math.floor(Math.random() * (maxAmount / 10)) * 10 + 10
-
-    amounts.push(randomAmount)
-    remainingPrice -= randomAmount
-    remainingPeople--
+  for (let i = 0; i < peopleCount; i++) {
+    if (i !== luckyGuyIdx) payerIndices.push(i)
   }
-  amounts.push(remainingPrice)
-  amounts.sort(() => Math.random() - 0.5)
 
-  const maxAmount = Math.max(...amounts)
+  for (let i = 0; i < payerIndices.length - 1; i++) {
+    let currentPayerIdx = payerIndices[i]
+    let avgShare = remainingPrice / (remainingPayersCount - i)
+    let maxShare = Math.min(
+      remainingPrice - 100 * (remainingPayersCount - i - 1),
+      avgShare * 1.6,
+    )
+    let minShare = 100
 
-  let htmlContent = `<h3>정산 결과 </h3><ul style="list-style:none; padding:0; text-align:left; max-width:260px; margin:0 auto;">`
-  for (let i = 0; i < totalPeople; i++) {
-    const isMax = amounts[i] === maxAmount ? '👑 ' : ''
-    htmlContent += `<li style="padding: 0.6rem 0; border-bottom: 1px solid #eee; font-size:1.1rem;">
-      <strong>${memberNames[i]} :</strong> ${isMax}${amounts[i].toLocaleString()}원
-    </li>`
+    let share = Math.floor(Math.random() * (maxShare - minShare + 1)) + minShare
+    share = Math.round(share / 100) * 100
+
+    globalAssignments[currentPayerIdx] = share
+    remainingPrice -= share
   }
-  htmlContent += `</ul>`
+  globalAssignments[payerIndices[payerIndices.length - 1]] = remainingPrice
 
-  if (resultDiv) {
-    resultDiv.innerHTML = htmlContent
-    resultDiv.classList.remove('hidden')
-    resultDiv.classList.add('show')
+  ladderBridges = []
+  const colWidthPercent = 100 / peopleCount
+
+  for (let i = 0; i < peopleCount; i++) {
+    const verticalLine = document.createElement('div')
+    verticalLine.classList.add('ladder-vertical-line')
+    verticalLine.setAttribute('data-index', i)
+
+    verticalLine.style.position = 'absolute'
+    verticalLine.style.left = `${i * colWidthPercent + colWidthPercent / 2}%`
+    verticalLine.style.height = '100%'
+    verticalLine.style.transform = 'translateX(-50%)'
+
+    const nameButton = document.createElement('button')
+    nameButton.classList.add('ladder-name-btn')
+    nameButton.innerText = globalNames[i]
+    nameButton.onclick = () => playLadderMotion(i)
+    verticalLine.appendChild(nameButton)
+
+    const priceLabel = document.createElement('div')
+    priceLabel.classList.add('ladder-price-label')
+    const priceVal = globalAssignments[i]
+    priceLabel.innerText =
+      priceVal === 0 ? '🎉 0원' : `${priceVal.toLocaleString()}원`
+    verticalLine.appendChild(priceLabel)
+
+    linesContainer.appendChild(verticalLine)
   }
+
+  const totalRows = 6
+
+  for (let r = 0; r < totalRows; r++) {
+    const currentTopPercent = 20 + r * 11
+
+    for (let i = 0; i < peopleCount - 1; i++) {
+      const hasLeftBridge = ladderBridges.some(
+        (b) => b.topPercent === currentTopPercent && b.fromColumn === i - 1,
+      )
+
+      if (!hasLeftBridge && Math.random() > 0.4) {
+        ladderBridges.push({
+          fromColumn: i,
+          toColumn: i + 1,
+          topPercent: currentTopPercent,
+        })
+
+        const bridgeLeft = i * colWidthPercent + colWidthPercent / 2
+        const bridgeWidth = colWidthPercent
+
+        const bridge = document.createElement('div')
+        bridge.classList.add('ladder-horizontal-bridge')
+        bridge.style.position = 'absolute'
+        bridge.style.top = `${currentTopPercent}%`
+        bridge.style.left = `${bridgeLeft}%`
+        bridge.style.width = `${bridgeWidth}%`
+        linesContainer.appendChild(bridge)
+      }
+    }
+  }
+
+  ladderBridges.sort((a, b) => a.topPercent - b.topPercent)
 }
 
-// [스마트 링크 처리] 다른 페이지(team.html 등)에서 주소 뒤에 파라미터를 들고 왔을 때 해당 탭을 열어주는 로직
+function playLadderMotion(startLineIdx) {
+  if (isLadderPlaying) return
+  isLadderPlaying = true
+
+  const linesContainer = document.getElementById('ladder-lines-container')
+
+  const oldBall = document.querySelector('.ladder-tracking-ball')
+  if (oldBall) oldBall.remove()
+  const oldTraces = document.querySelectorAll('.ladder-path-trace')
+  oldTraces.forEach((t) => t.remove())
+
+  const ball = document.createElement('div')
+  ball.classList.add('ladder-tracking-ball')
+  linesContainer.appendChild(ball)
+
+  let currentColumn = startLineIdx
+
+  let currentTop = 0
+
+  let pathPoints = []
+  pathPoints.push({ col: currentColumn, top: currentTop })
+
+  let visitedBridges = new Set()
+
+  while (currentTop < 100) {
+    let nextBridge = null
+
+    for (let bridge of ladderBridges) {
+      if (bridge.topPercent > currentTop && !visitedBridges.has(bridge)) {
+        if (
+          bridge.fromColumn === currentColumn ||
+          bridge.toColumn === currentColumn
+        ) {
+          nextBridge = bridge
+          break
+        }
+      }
+    }
+
+    if (nextBridge) {
+      pathPoints.push({ col: currentColumn, top: nextBridge.topPercent })
+      visitedBridges.add(nextBridge)
+
+      if (nextBridge.fromColumn === currentColumn) {
+        currentColumn = nextBridge.toColumn
+      } else {
+        currentColumn = nextBridge.fromColumn
+      }
+      pathPoints.push({ col: currentColumn, top: nextBridge.topPercent })
+      currentTop = nextBridge.topPercent
+    } else {
+      currentTop = 100
+      pathPoints.push({ col: currentColumn, top: currentTop })
+    }
+  }
+
+  let step = 0
+  const columns = document.querySelectorAll('.ladder-vertical-line')
+  const colWidthPercent = 100 / columns.length
+
+  function applyNextPosition() {
+    if (step >= pathPoints.length) {
+      isLadderPlaying = false
+      showFinalReceipt()
+      return
+    }
+
+    const pt = pathPoints[step]
+    const currentXPercent = pt.col * colWidthPercent + colWidthPercent / 2
+
+    ball.style.left = `${currentXPercent}%`
+    ball.style.top = `${pt.top}%`
+    ball.style.transform = 'translate(-50%, -50%)'
+
+    if (step > 0) {
+      const prevPt = pathPoints[step - 1]
+      const trace = document.createElement('div')
+      trace.classList.add('ladder-path-trace')
+      trace.style.position = 'absolute'
+
+      if (prevPt.col === pt.col) {
+        trace.style.width = '4px'
+        trace.style.height = `${Math.abs(pt.top - prevPt.top)}%`
+        trace.style.left = `${currentXPercent}%`
+        trace.style.top = `${Math.min(prevPt.top, pt.top)}%`
+        trace.style.transform = 'translateX(-50%)'
+      } else {
+        const fromXPercent = prevPt.col * colWidthPercent + colWidthPercent / 2
+        trace.style.height = '4px'
+        trace.style.width = `${Math.abs(currentXPercent - fromXPercent)}%`
+        trace.style.left = `${Math.min(fromXPercent, currentXPercent)}%`
+        trace.style.top = `${pt.top}%`
+        trace.style.transform = 'translateY(-50%)'
+      }
+      linesContainer.appendChild(trace)
+    }
+
+    step++
+
+    setTimeout(applyNextPosition, 420)
+  }
+
+  const firstPt = pathPoints[0]
+  const startXPercent = firstPt.col * colWidthPercent + colWidthPercent / 2
+  ball.style.left = `${startXPercent}%`
+  ball.style.top = `${firstPt.top}%`
+  ball.style.transform = 'translate(-50%, -50%)'
+
+  step = 1
+  setTimeout(applyNextPosition, 50)
+}
+
+function showFinalReceipt() {
+  const resultCard = document.getElementById('dutch-result')
+  if (!resultCard) return
+
+  let resultHTML = `<h3 style="color:#a90120; border-bottom:2px dashed #eee; padding-bottom:0.5rem;">사다리 타기 결과</h3>`
+  globalNames.forEach((name, idx) => {
+    const cost = globalAssignments[idx]
+    if (cost === 0) {
+      resultHTML += `<p style="font-size:1.05rem; margin: 0.6rem 0;"><strong>${name}</strong> : <span style="color:green; font-weight:bold;">🎉 0원</span></p>`
+    } else {
+      resultHTML += `<p style="font-size:1.05rem; margin: 0.6rem 0;"><strong>${name}</strong> : <span style="color:#333;">${cost.toLocaleString()} 원</span></p>`
+    }
+  })
+
+  resultCard.innerHTML = resultHTML
+  resultCard.classList.remove('hidden')
+  resultCard.classList.add('show')
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search)
   const tab = urlParams.get('tab')

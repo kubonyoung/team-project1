@@ -163,33 +163,125 @@ footer p {
   display: none !important;
 }
 
-.review-section {
-  max-width: 700px;
-  margin: 4rem auto 1rem auto;
-  padding-top: 2rem;
-  border-top: 2px dashed rgba(169, 1, 32, 0.2);
-}
-
-.comment-box {
+.ladder-box {
   background-color: #fff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  margin-top: 1.5rem;
-  text-align: left;
-}
-
-.api-guide-notice {
-  text-align: center;
+  max-width: 550px;
+  margin: 1.5rem auto;
   padding: 1.5rem;
-  background-color: #fcf8e3;
-  border: 1px solid #faebcc;
-  color: #8a6d3b;
-  border-radius: 4px;
-  line-height: 1.6;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* --- 팀 소개 페이지 전용 정렬 스타일 --- */
+.ladder-guide-text {
+  font-size: 0.95rem;
+  color: #555;
+  background-color: #eef7ed;
+  padding: 0.6rem;
+  border-radius: 5px;
+  border-left: 4px solid #4caf50;
+  margin-bottom: 1rem;
+}
+
+.ladder-visual-board {
+  padding: 1rem 0;
+  background-color: #fcfcfd;
+  border: 1px solid #e1e4e6;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.ladder-lines-area {
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  height: 340px;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.ladder-vertical-line {
+  width: 6px;
+  background-color: #495057;
+  position: relative;
+  height: 100%;
+  border-radius: 4px;
+  z-index: 2;
+}
+
+.ladder-name-btn {
+  position: absolute;
+  top: -38px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.9rem;
+  background-color: #a90120;
+  color: #fff;
+  padding: 4px 12px;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition:
+    transform 0.1s,
+    background-color 0.2s;
+  z-index: 5;
+}
+
+.ladder-name-btn:hover {
+  background-color: #e60026;
+  transform: translateX(-50%) scale(1.05);
+}
+
+.ladder-price-label {
+  position: absolute;
+  bottom: -36px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.85rem;
+  background-color: #f1f3f5;
+  color: #212529;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  border: 1px solid #ced4da;
+  z-index: 5;
+}
+
+.ladder-horizontal-bridge {
+  position: absolute;
+  height: 6px;
+  background-color: #495057;
+  z-index: 1;
+}
+
+.ladder-tracking-ball {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #ff3b30;
+  border-radius: 50%;
+  z-index: 4;
+  box-shadow:
+    0 0 10px rgba(255, 59, 48, 0.8),
+    inset -2px -2px 5px rgba(0, 0, 0, 0.2);
+  transition:
+    left 0.24s linear,
+    top 0.24s linear;
+}
+
+.ladder-path-trace {
+  position: absolute;
+  background-color: #ff3b30;
+  z-index: 3;
+  border-radius: 3px;
+  box-shadow: 0 0 4px rgba(255, 59, 48, 0.5);
+  animation: pathDraw 0.24s linear forwards;
+}
+
 .team {
   max-width: 1000px;
   margin: 0 auto;
@@ -242,10 +334,17 @@ footer p {
   }
 }
 
-/* 📱 모바일 반응형 디자인 (글씨 가림 현상 수정 버전) */
+@keyframes pathDraw {
+  from {
+    opacity: 0.6;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @media (max-width: 700px) {
   header {
-    /* 1. 카테고리가 늘어난 만큼 바닥 여백을 기존 95px에서 125px로 늘려 본문을 아래로 내림 */
     margin-bottom: 125px;
   }
 
@@ -293,12 +392,16 @@ footer p {
   }
 
   main {
-    /* 2. 본문 내용 자체의 상단 여백을 두 글자 분량(3.5rem) 정도 더 주어 글씨가 완벽하게 보이도록 조절 */
     padding: 3.5rem 1rem 1rem 1rem;
   }
 
   .team-flex {
     flex-direction: column;
     align-items: center;
+  }
+
+  .ladder-box {
+    width: 92%;
+    padding: 0.8rem;
   }
 }
