@@ -6,6 +6,7 @@ const menus = [
     img: 'img/1. 김치찌개.jpg',
     price: '13,900원',
     score_img: 'img/1. 김치찌개 평점.jpg',
+    category: '한식',
   },
   {
     shop: '햄버거',
@@ -14,6 +15,7 @@ const menus = [
     img: 'img/2. 햄버거.jpg',
     price: '9,100원',
     score_img: 'img/2. 햄버거 평점.jpg',
+    category: '양식',
   },
   {
     shop: '짜장면',
@@ -22,6 +24,7 @@ const menus = [
     img: 'img/3. 짜장면.jpg',
     price: '7,000원',
     score_img: 'img/3,4. 짜장, 짬뽕 평점.jpg',
+    category: '중식',
   },
   {
     shop: '짬뽕',
@@ -30,6 +33,7 @@ const menus = [
     img: 'img/4. 짬뽕.jpg',
     price: '12,000원',
     score_img: 'img/3.4. 짜장, 짬뽕 평점.jpg',
+    category: '중식',
   },
   {
     shop: '김밥',
@@ -38,6 +42,7 @@ const menus = [
     img: 'img/5. 김밥.jpg',
     price: '4,500원',
     score_img: 'img/5. 김밥 평점.jpg',
+    category: '분식',
   },
   {
     shop: '마라탕',
@@ -46,6 +51,7 @@ const menus = [
     img: 'img/6. 마라탕.jpg',
     price: '13,500원',
     score_img: 'img/6. 마라탕 평점.jpg',
+    category: '중식',
   },
   {
     shop: '치킨',
@@ -54,6 +60,7 @@ const menus = [
     img: 'img/7. 치킨.jpg',
     price: '25,000원',
     score_img: 'img/7. 치킨 평점.jpg',
+    category: '한식',
   },
   {
     shop: '초밥',
@@ -62,6 +69,7 @@ const menus = [
     img: 'img/8. 초밥.jpg',
     price: '15,900원',
     score_img: 'img/8. 초밥 평점.jpg',
+    category: '일식',
   },
   {
     shop: '떡볶이',
@@ -70,6 +78,7 @@ const menus = [
     img: 'img/9. 떡볶이.jpg',
     price: '11,000원',
     score_img: 'img/9. 떡볶이 평점.jpg',
+    category: '분식',
   },
   {
     shop: '국밥',
@@ -78,6 +87,7 @@ const menus = [
     img: 'img/10. 순대국.jpg',
     price: '10,000원',
     score_img: 'img/10. 순대국 평점.jpg',
+    category: '한식',
   },
   {
     shop: '도시락',
@@ -86,6 +96,7 @@ const menus = [
     img: 'img/11. 도시락.jpg',
     price: '4,700원',
     score_img: 'img/11. 도시락 평점.jpg',
+    category: '한식',
   },
   {
     shop: '찜닭',
@@ -94,6 +105,7 @@ const menus = [
     img: 'img/12. 찜닭.jpg',
     price: '23,000원',
     score_img: 'img/12. 찜닭 평점.jpg',
+    category: '한식',
   },
   {
     shop: '돈가스',
@@ -102,6 +114,7 @@ const menus = [
     img: 'img/13. 돈가스.jpg',
     price: '11,000원',
     score_img: 'img/13. 돈가스 평점.jpg',
+    category: '일식',
   },
   {
     shop: '죽',
@@ -110,6 +123,7 @@ const menus = [
     img: 'img/14. 죽.jpg',
     price: '14,000원',
     score_img: 'img/14. 죽 평점.jpg',
+    category: '한식',
   },
   {
     shop: '쌀국수',
@@ -118,6 +132,7 @@ const menus = [
     img: 'img/15. 쌀국수.jpg',
     price: '9,000원',
     score_img: 'img/15. 쌀국수 평점.jpg',
+    category: '양식',
   },
   {
     shop: '보쌈',
@@ -126,6 +141,7 @@ const menus = [
     img: 'img/16. 보쌈.jpg',
     price: '13,000원',
     score_img: 'img/16. 보쌈 평점.jpg',
+    category: '한식',
   },
   {
     shop: '파스타',
@@ -134,6 +150,7 @@ const menus = [
     img: 'img/17. 파스타.jpg',
     price: '11,900원',
     score_img: 'img/17. 파스타 평점.jpg',
+    category: '양식',
   },
   {
     shop: '삼겹살',
@@ -142,6 +159,7 @@ const menus = [
     img: 'img/18. 삼겹살.jpg',
     price: '17,900원',
     score_img: 'img/18. 삼겹살 평점.jpg',
+    category: '한식',
   },
   {
     shop: '덮밥',
@@ -150,6 +168,7 @@ const menus = [
     img: 'img/19. 덮밥.jpg',
     price: '15,900원',
     score_img: 'img/19. 덮밥 평점.jpg',
+    category: '한식',
   },
   {
     shop: '냉면',
@@ -158,6 +177,7 @@ const menus = [
     img: 'img/20. 냉면.jpg',
     price: '10,900원',
     score_img: 'img/20. 냉면 평점.jpg',
+    category: '한식',
   },
   {
     shop: '밥버거',
@@ -166,6 +186,7 @@ const menus = [
     img: 'img/21. 밥버거.jpg',
     price: '5,100원',
     score_img: 'img/21. 밥버거 평점.jpg',
+    category: '분식',
   },
   {
     shop: '닭볶음탕',
@@ -174,6 +195,7 @@ const menus = [
     img: 'img/22. 닭볶음탕.jpg',
     price: '13,000원',
     score_img: 'img/22. 닭볶음탕 평점.jpg',
+    category: '한식',
   },
   {
     shop: '곱창',
@@ -182,6 +204,7 @@ const menus = [
     img: 'img/23. 곱창.jpg',
     price: '26,000원',
     score_img: 'img/23. 곱창 평점.jpg',
+    category: '한식',
   },
   {
     shop: '제육볶음',
@@ -190,6 +213,7 @@ const menus = [
     img: 'img/24. 제육볶음.jpg',
     price: '15,900원',
     score_img: 'img/24. 제육볶음 평점.jpg',
+    category: '한식',
   },
   {
     shop: '샐러드',
@@ -198,6 +222,7 @@ const menus = [
     img: 'img/25. 샐러드.jpg',
     price: '15,900원',
     score_img: 'img/25. 샐러드 평점.jpg',
+    category: '양식',
   },
   {
     shop: '닭발',
@@ -206,6 +231,7 @@ const menus = [
     img: 'img/26. 닭발.jpg',
     price: '20,000원',
     score_img: 'img/26. 닭발 평점.jpg',
+    category: '한식',
   },
   {
     shop: '칼국수',
@@ -214,6 +240,7 @@ const menus = [
     img: 'img/27. 칼국수.jpg',
     price: '10,000원',
     score_img: 'img/27. 칼국수 평점.jpg',
+    category: '한식',
   },
   {
     shop: '피자',
@@ -222,6 +249,7 @@ const menus = [
     img: 'img/28. 피자.jpg',
     price: '21,000원',
     score_img: 'img/28. 피자 평점.jpg',
+    category: '양식',
   },
   {
     shop: '카레',
@@ -230,6 +258,7 @@ const menus = [
     img: 'img/29. 카레.jpg',
     price: '14,900원',
     score_img: 'img/29. 카레 평점.jpg',
+    category: '일식',
   },
   {
     shop: '토스트',
@@ -238,6 +267,7 @@ const menus = [
     img: 'img/30. Toast.jpg',
     price: '4,100원',
     score_img: 'img/30. 토스트 평점.jpg',
+    category: '분식',
   },
   {
     shop: '부대찌개',
@@ -246,6 +276,7 @@ const menus = [
     img: 'img/31. 부대찌개.jpg',
     price: '16,900원',
     score_img: 'img/31. 부대찌개 평점.jpg',
+    category: '한식',
   },
   {
     shop: '오므라이스',
@@ -254,6 +285,7 @@ const menus = [
     img: 'img/32. 오므라이스.jpg',
     price: '15,000원',
     score_img: 'img/32. 오므라이스 평점.jpg',
+    category: '한식',
   },
   {
     shop: '한식뷔페',
@@ -261,6 +293,7 @@ const menus = [
     mainMenu: '1인',
     img: 'img/33. 한식뷔페.jpg',
     price: '8,800원',
+    category: '한식',
   },
   {
     shop: '국수',
@@ -268,6 +301,7 @@ const menus = [
     mainMenu: '비빔국수',
     img: 'img/34. 국수.jpg',
     price: '5,000원',
+    category: '한식',
   },
   {
     shop: '학식',
@@ -275,6 +309,7 @@ const menus = [
     mainMenu: '한식, 돈가스',
     img: 'img/35. 학식.jpg',
     price: '6,000원~7,500원',
+    category: '한식',
   },
   {
     shop: '브런치',
@@ -283,6 +318,7 @@ const menus = [
     img: 'img/36. 브런치.jpg',
     price: '7,800원',
     score_img: 'img/36. 브런치 평점.jpg',
+    category: '양식',
   },
   {
     shop: '간장게장',
@@ -291,6 +327,7 @@ const menus = [
     img: 'img/37. 간장게장.jpg',
     price: '19,500원',
     score_img: 'img/37. 간장게장 평점.jpg',
+    category: '한식',
   },
   {
     shop: '볶음밥',
@@ -299,6 +336,7 @@ const menus = [
     img: 'img/38. 볶음밥.jpg',
     price: '11,900원',
     score_img: 'img/38. 볶음밥 평점.jpg',
+    category: '한식',
   },
   {
     shop: '족발',
@@ -307,6 +345,7 @@ const menus = [
     img: 'img/39. 족발.jpg',
     price: '13,000원',
     score_img: 'img/39. 족발 평점.jpg',
+    category: '한식',
   },
   {
     shop: '콩나물불고기',
@@ -315,6 +354,7 @@ const menus = [
     img: 'img/40. 콩나물불고기.jpg',
     price: '17,000원',
     score_img: 'img/40. 콩나물불고기 평점.jpg',
+    category: '한식',
   },
   {
     shop: '만두',
@@ -323,6 +363,7 @@ const menus = [
     img: 'img/41. 만두.jpg',
     price: '6,500원',
     score_img: 'img/41. 만두 평점.jpg',
+    category: '분식',
   },
   {
     shop: '꼬치',
@@ -331,6 +372,7 @@ const menus = [
     img: 'img/42. 꼬치.jpg',
     price: '4,500원',
     score_img: 'img/42. 꼬치 평점.jpg',
+    category: '분식',
   },
   {
     shop: '쭈꾸미',
@@ -339,6 +381,7 @@ const menus = [
     img: 'img/43. 쭈꾸미.jpg',
     price: '18,900원',
     score_img: 'img/43. 쭈꾸미 평점.jpg',
+    category: '한식',
   },
   {
     shop: '회덮밥',
@@ -347,6 +390,7 @@ const menus = [
     img: 'img/44. 회덮밥.jpg',
     price: '13,000원',
     score_img: 'img/44. 회덮밥 평점.jpg',
+    category: '일식',
   },
   {
     shop: '고등어조림',
@@ -355,6 +399,7 @@ const menus = [
     img: 'img/45. 고등어조림.jpg',
     price: '14,000원',
     score_img: 'img/45. 고등어조림 평점.jpg',
+    category: '한식',
   },
   {
     shop: '갈비탕',
@@ -363,6 +408,7 @@ const menus = [
     img: 'img/46. 갈비탕.jpg',
     price: '15,000원',
     score_img: 'img/46. 갈비탕 평점.jpg',
+    category: '한식',
   },
   {
     shop: '김치찜',
@@ -371,6 +417,7 @@ const menus = [
     img: 'img/47. 김치찜.jpg',
     price: '23,900원',
     score_img: 'img/47. 김치찜 평점.jpg',
+    category: '한식',
   },
   {
     shop: '탕수육',
@@ -379,6 +426,7 @@ const menus = [
     img: 'img/48. 탕수육.jpg',
     price: '14,900원',
     score_img: 'img/48. 탕수육 평점.jpg',
+    category: '중식',
   },
   {
     shop: '곱도리탕',
@@ -387,6 +435,7 @@ const menus = [
     img: 'img/49. 곱도리탕.jpg',
     price: '20,000원',
     score_img: 'img/49. 곱도리탕 평점.jpg',
+    category: '한식',
   },
   {
     shop: '육회비빔밥',
@@ -395,8 +444,11 @@ const menus = [
     img: 'img/50. 육회비빔밥.jpg',
     price: '13,000원',
     score_img: 'img/50. 육회비빔밥 평점.jpg',
+    category: '일식',
   },
 ]
+
+let selectedCategory = '전체'
 
 let ladderBridges = []
 let globalAssignments = []
@@ -417,9 +469,33 @@ function showSection(sectionType) {
   }
 }
 
+function selectCategory(category, element) {
+  selectedCategory = category
+
+  document.querySelectorAll('.cat-btn').forEach((btn) => {
+    btn.style.backgroundColor = 'white'
+    btn.style.color = '#333'
+    btn.style.borderColor = '#ccc'
+  })
+
+  element.style.backgroundColor = '#a90120'
+  element.style.color = 'white'
+  element.style.borderColor = '#a90120'
+}
+
 function recommendMenu() {
-  const randomIndex = Math.floor(Math.random() * menus.length)
-  const menu = menus[randomIndex]
+  const filteredMenus =
+    selectedCategory === '전체'
+      ? menus
+      : menus.filter((m) => m.category === selectedCategory)
+
+  if (filteredMenus.length === 0) {
+    alert(`${selectedCategory} 카테고리에 해당하는 메뉴가 없습니다.`)
+    return
+  }
+
+  const randomIndex = Math.floor(Math.random() * filteredMenus.length)
+  const menu = filteredMenus[randomIndex]
   const card = document.getElementById('result-card')
   if (!card) return
 

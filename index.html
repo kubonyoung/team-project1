@@ -36,6 +36,121 @@
     <main>
       <section id="recommend-section" class="content-section">
         <h2>오늘 점심 뭐 먹을까?</h2>
+
+        <div
+          class="category-tabs"
+          style="
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+          "
+        >
+          <button
+            onclick="selectCategory('전체', this)"
+            class="cat-btn active"
+            style="
+              padding: 0.5rem 1rem;
+              font-size: 0.95rem;
+              font-weight: bold;
+              border: 1px solid #a90120;
+              border-radius: 20px;
+              background-color: #a90120;
+              color: white;
+              cursor: pointer;
+              transition: all 0.2s;
+            "
+          >
+            전체
+          </button>
+          <button
+            onclick="selectCategory('한식', this)"
+            class="cat-btn"
+            style="
+              padding: 0.5rem 1rem;
+              font-size: 0.95rem;
+              font-weight: bold;
+              border: 1px solid #ccc;
+              border-radius: 20px;
+              background-color: white;
+              color: #333;
+              cursor: pointer;
+              transition: all 0.2s;
+            "
+          >
+            한식
+          </button>
+          <button
+            onclick="selectCategory('중식', this)"
+            class="cat-btn"
+            style="
+              padding: 0.5rem 1rem;
+              font-size: 0.95rem;
+              font-weight: bold;
+              border: 1px solid #ccc;
+              border-radius: 20px;
+              background-color: white;
+              color: #333;
+              cursor: pointer;
+              transition: all 0.2s;
+            "
+          >
+            중식
+          </button>
+          <button
+            onclick="selectCategory('양식', this)"
+            class="cat-btn"
+            style="
+              padding: 0.5rem 1rem;
+              font-size: 0.95rem;
+              font-weight: bold;
+              border: 1px solid #ccc;
+              border-radius: 20px;
+              background-color: white;
+              color: #333;
+              cursor: pointer;
+              transition: all 0.2s;
+            "
+          >
+            양식
+          </button>
+          <button
+            onclick="selectCategory('일식', this)"
+            class="cat-btn"
+            style="
+              padding: 0.5rem 1rem;
+              font-size: 0.95rem;
+              font-weight: bold;
+              border: 1px solid #ccc;
+              border-radius: 20px;
+              background-color: white;
+              color: #333;
+              cursor: pointer;
+              transition: all 0.2s;
+            "
+          >
+            일식
+          </button>
+          <button
+            onclick="selectCategory('분식', this)"
+            class="cat-btn"
+            style="
+              padding: 0.5rem 1rem;
+              font-size: 0.95rem;
+              font-weight: bold;
+              border: 1px solid #ccc;
+              border-radius: 20px;
+              background-color: white;
+              color: #333;
+              cursor: pointer;
+              transition: all 0.2s;
+            "
+          >
+            분식
+          </button>
+        </div>
+
         <p>
           버튼을 눌러 우리 팀이 엄선한 맛집 메뉴를 무작위로 추천받아 보세요!
         </p>
