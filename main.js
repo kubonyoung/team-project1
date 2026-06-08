@@ -371,7 +371,7 @@ const originalMenus = [
     mainMenu: '소금 구이 닭꼬치',
     img: 'img/42. 꼬치.jpg',
     price: '4,500원',
-    score_img: 'img/42. 닭꼬치 평점.jpg',
+    score_img: 'img/42. 꼬치 평점.jpg',
     category: '분식',
   },
   {
