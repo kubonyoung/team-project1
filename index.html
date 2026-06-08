@@ -2,29 +2,54 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <title>점심 메뉴 추천</title>
+    <title>점심 메뉴 추천 프로젝트</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header>
       <div class="header-container">
-        <a href="index.html"> <img src="img/다운로드.jfif" alt="로고" /></a>
+        <a
+          href="index.html"
+          onclick="
+            showSection('recommend')
+            return false
+          "
+        >
+          <img src="img/다운로드.jfif" alt="로고" />
+        </a>
         <nav>
+          <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </div>
+
           <ul>
             <li>
+              <a href="#" id="diet-link" target="_blank">오늘의 학식</a>
+            </li>
+            <li id="divider">|</li>
+            <li>
               <a
-                href="https://joongbu.ac.kr/diet/index.es?mid=a10406030000&p=C&d=2026-04-07"
-                >오늘의 학식</a
+                href="#"
+                onclick="
+                  showSection('recommend')
+                  return false
+                "
+                >메뉴 추천</a
               >
             </li>
             <li id="divider">|</li>
             <li>
-              <a href="#" onclick="showSection('recommend')">메뉴 추천</a>
-            </li>
-            <li id="divider">|</li>
-            <li>
-              <a href="#" onclick="showSection('dutch')">랜덤 정산하기</a>
+              <a
+                href="#"
+                onclick="
+                  showSection('dutch')
+                  return false
+                "
+                >랜덤 정산하기</a
+              >
             </li>
             <li id="divider">|</li>
             <li><a href="team.html">팀소개</a></li>
@@ -34,174 +59,229 @@
     </header>
 
     <main>
-      <section id="recommend-section" class="content-section">
-        <h2>오늘 점심 뭐 먹을까?</h2>
+      <section id="recommend-section" class="recommendation">
+        <h2>오늘 뭐 먹지?</h2>
+        <p>카테고리를 선택하고 추천 버튼을 눌러보세요!</p>
 
-        <div
-          class="category-tabs"
-          style="
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
-          "
-        >
-          <button
-            onclick="selectCategory('전체', this)"
-            class="cat-btn active"
-            style="
-              padding: 0.5rem 1rem;
-              font-size: 0.95rem;
-              font-weight: bold;
-              border: 1px solid #a90120;
-              border-radius: 20px;
-              background-color: #a90120;
-              color: white;
-              cursor: pointer;
-              transition: all 0.2s;
-            "
-          >
+        <div class="categories">
+          <button class="cat-btn" onclick="selectCategory('전체', this)">
             전체
           </button>
-          <button
-            onclick="selectCategory('한식', this)"
-            class="cat-btn"
-            style="
-              padding: 0.5rem 1rem;
-              font-size: 0.95rem;
-              font-weight: bold;
-              border: 1px solid #ccc;
-              border-radius: 20px;
-              background-color: white;
-              color: #333;
-              cursor: pointer;
-              transition: all 0.2s;
-            "
-          >
+          <button class="cat-btn" onclick="selectCategory('한식', this)">
             한식
           </button>
-          <button
-            onclick="selectCategory('중식', this)"
-            class="cat-btn"
-            style="
-              padding: 0.5rem 1rem;
-              font-size: 0.95rem;
-              font-weight: bold;
-              border: 1px solid #ccc;
-              border-radius: 20px;
-              background-color: white;
-              color: #333;
-              cursor: pointer;
-              transition: all 0.2s;
-            "
-          >
-            중식
-          </button>
-          <button
-            onclick="selectCategory('양식', this)"
-            class="cat-btn"
-            style="
-              padding: 0.5rem 1rem;
-              font-size: 0.95rem;
-              font-weight: bold;
-              border: 1px solid #ccc;
-              border-radius: 20px;
-              background-color: white;
-              color: #333;
-              cursor: pointer;
-              transition: all 0.2s;
-            "
-          >
-            양식
-          </button>
-          <button
-            onclick="selectCategory('일식', this)"
-            class="cat-btn"
-            style="
-              padding: 0.5rem 1rem;
-              font-size: 0.95rem;
-              font-weight: bold;
-              border: 1px solid #ccc;
-              border-radius: 20px;
-              background-color: white;
-              color: #333;
-              cursor: pointer;
-              transition: all 0.2s;
-            "
-          >
+          <button class="cat-btn" onclick="selectCategory('일식', this)">
             일식
           </button>
-          <button
-            onclick="selectCategory('분식', this)"
-            class="cat-btn"
-            style="
-              padding: 0.5rem 1rem;
-              font-size: 0.95rem;
-              font-weight: bold;
-              border: 1px solid #ccc;
-              border-radius: 20px;
-              background-color: white;
-              color: #333;
-              cursor: pointer;
-              transition: all 0.2s;
-            "
-          >
+          <button class="cat-btn" onclick="selectCategory('중식', this)">
+            중식
+          </button>
+          <button class="cat-btn" onclick="selectCategory('양식', this)">
+            양식
+          </button>
+          <button class="cat-btn" onclick="selectCategory('분식', this)">
             분식
           </button>
         </div>
 
-        <p>
-          버튼을 눌러 우리 팀이 엄선한 맛집 메뉴를 무작위로 추천받아 보세요!
-        </p>
-        <button class="btn-main" onclick="recommendMenu()">
+        <div
+          class="add-menu-form"
+          style="
+            max-width: 500px;
+            margin: 2rem auto;
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            text-align: left;
+          "
+        >
+          <h3
+            style="
+              color: #a90120;
+              margin-bottom: 1rem;
+              font-size: 1.2rem;
+              border-bottom: 1px solid #eee;
+              padding-bottom: 0.5rem;
+            "
+          >
+            ✨ 원하는 메뉴 직접 추가하기
+          </h3>
+
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.8rem">
+            <div style="flex: 1">
+              <label style="font-size: 0.85rem; font-weight: bold; color: #555"
+                >카테고리</label
+              >
+              <select
+                id="new-category"
+                style="
+                  width: 100%;
+                  padding: 0.4rem;
+                  border: 1px solid #ccc;
+                  border-radius: 4px;
+                "
+              >
+                <option value="한식">한식</option>
+                <option value="일식">일식</option>
+                <option value="중식">중식</option>
+                <option value="양식">양식</option>
+                <option value="분식">분식</option>
+              </select>
+            </div>
+            <div style="flex: 2">
+              <label style="font-size: 0.85rem; font-weight: bold; color: #555"
+                >종류 (키워드)</label
+              >
+              <input
+                type="text"
+                id="new-shop"
+                placeholder="예: 부대찌개, 돈가스"
+                style="
+                  width: 100%;
+                  padding: 0.4rem;
+                  border: 1px solid #ccc;
+                  border-radius: 4px;
+                "
+              />
+            </div>
+          </div>
+
+          <div style="margin-bottom: 0.8rem">
+            <label style="font-size: 0.85rem; font-weight: bold; color: #555"
+              >가게 이름</label
+            >
+            <input
+              type="text"
+              id="new-name"
+              placeholder="예: 놀부부대찌개 고양점"
+              style="
+                width: 100%;
+                padding: 0.4rem;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+              "
+            />
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem">
+            <div style="flex: 1">
+              <label style="font-size: 0.85rem; font-weight: bold; color: #555"
+                >대표 메뉴명</label
+              >
+              <input
+                type="text"
+                id="new-mainMenu"
+                placeholder="예: 치즈부대찌개"
+                style="
+                  width: 100%;
+                  padding: 0.4rem;
+                  border: 1px solid #ccc;
+                  border-radius: 4px;
+                "
+              />
+            </div>
+            <div style="flex: 1">
+              <label style="font-size: 0.85rem; font-weight: bold; color: #555"
+                >가격</label
+              >
+              <input
+                type="text"
+                id="new-price"
+                placeholder="예: 11,000원"
+                style="
+                  width: 100%;
+                  padding: 0.4rem;
+                  border: 1px solid #ccc;
+                  border-radius: 4px;
+                "
+              />
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onclick="addNewMenu()"
+            style="
+              width: 100%;
+              background: #333;
+              color: #fff;
+              border: none;
+              padding: 0.6rem;
+              font-weight: bold;
+              border-radius: 4px;
+              cursor: pointer;
+              transition: background 0.2s;
+            "
+          >
+            메뉴 저장하기
+          </button>
+        </div>
+
+        <button class="recommend-trigger" onclick="recommendMenu()">
           메뉴 추천받기
         </button>
+
         <div id="result-card" class="menu-card hidden"></div>
       </section>
 
-      <section id="dutch-section" class="content-section hidden">
-        <h2>랜덤 사다리타기 정산</h2>
-        <p>금액과 인원을 입력하면 랜덤으로 금액을 정산합니다!</p>
+      <section id="dutch-section" class="dutch-pay hidden">
+        <h2>랜덤 정산 사다리타기</h2>
+        <p>금액과 참여 인원을 적고 사다리를 타보세요!</p>
 
-        <div class="input-form">
-          <div class="input-row">
-            <label for="total-price">총 정산 금액 : </label>
-            <input type="number" id="total-price" placeholder="예: 50000" /> 원
+        <div class="dutch-inputs">
+          <div class="input-group">
+            <label for="total-price">총 결제 금액 (원):</label>
+            <input
+              type="number"
+              id="total-price"
+              placeholder="예: 53000"
+              min="0"
+            />
           </div>
-          <div class="input-row">
-            <label for="total-people">참여 인원수 : </label>
+
+          <div class="input-group">
+            <label for="total-people">참여 인원 (2~10명):</label>
             <input
               type="number"
               id="total-people"
               placeholder="예: 4"
+              min="2"
+              max="10"
               oninput="generateNameInputs()"
             />
-            명
           </div>
-
-          <div id="name-inputs-container" class="name-container"></div>
-
-          <button class="btn-main" onclick="startLadderGame()">
-            사다리 생성하기
-          </button>
         </div>
 
-        <div id="ladder-game-container" class="ladder-box hidden">
-          <p class="ladder-guide-text">
-            <strong>이름을 클릭</strong>하면 사다리타기 게임이 시작됩니다.
+        <div
+          id="name-inputs-container"
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.5rem;
+          "
+        ></div>
+
+        <button class="dutch-trigger" onclick="startLadderGame()">
+          사다리 생성하기
+        </button>
+
+        <div id="ladder-game-container" class="ladder-board hidden">
+          <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem">
+            💡 출발할 사람의 [이름 버튼]을 클릭하면 추적이 시작됩니다!
           </p>
-          <div id="ladder-visual" class="ladder-visual-board">
-            <div id="ladder-lines-container" class="ladder-lines-area"></div>
-          </div>
-          <div id="dutch-result" class="menu-card hidden"></div>
+          <div id="ladder-lines-container" class="ladder-lines-frame"></div>
         </div>
+
+        <div id="dutch-result" class="receipt-card hidden"></div>
       </section>
     </main>
 
     <footer>
       <p>© 2026 점심 메뉴 추천 프로젝트</p>
     </footer>
+
     <script src="main.js"></script>
   </body>
 </html>

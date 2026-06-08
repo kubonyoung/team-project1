@@ -1,4 +1,4 @@
-const menus = [
+const originalMenus = [
   {
     shop: '김치찌개',
     name: '전통숙성 황실김치찜&찌개 고양점',
@@ -57,7 +57,7 @@ const menus = [
     shop: '치킨',
     name: 'BBQ 고양고골길점',
     mainMenu: '황금올리브치킨',
-    img: 'img/7. 치킨.jpg',
+    img: 'img/7.치킨.jpg',
     price: '25,000원',
     score_img: 'img/7. 치킨 평점.jpg',
     category: '한식',
@@ -371,7 +371,7 @@ const menus = [
     mainMenu: '소금 구이 닭꼬치',
     img: 'img/42. 꼬치.jpg',
     price: '4,500원',
-    score_img: 'img/42. 꼬치 평점.jpg',
+    score_img: 'img/42. 닭꼬치 평점.jpg',
     category: '분식',
   },
   {
@@ -448,12 +448,26 @@ const menus = [
   },
 ]
 
+let customMenus = JSON.parse(localStorage.getItem('myCustomMenus')) || []
+let menus = [...originalMenus, ...customMenus]
 let selectedCategory = '전체'
-
 let ladderBridges = []
 let globalAssignments = []
 let globalNames = []
 let isLadderPlaying = false
+
+function updateDietLink() {
+  const dietLink = document.getElementById('diet-link')
+  if (!dietLink) return
+
+  const today = new Date()
+  const year = today.getFullYear()
+  const month = String(today.getMonth() + 1).padStart(2, '0')
+  const day = String(today.getDate()).padStart(2, '0')
+  const dateString = `${year}-${month}-${day}`
+
+  dietLink.href = `https://joongbu.ac.kr/diet/index.es?mid=a10406030000&p=C&d=${dateString}`
+}
 
 function showSection(sectionType) {
   const recommendSec = document.getElementById('recommend-section')
@@ -473,6 +487,7 @@ function selectCategory(category, element) {
   selectedCategory = category
 
   document.querySelectorAll('.cat-btn').forEach((btn) => {
+    btn.classList.remove('active-cat')
     btn.style.backgroundColor = 'white'
     btn.style.color = '#333'
     btn.style.borderColor = '#ccc'
@@ -499,19 +514,72 @@ function recommendMenu() {
   const card = document.getElementById('result-card')
   if (!card) return
 
-  const scoreImgTag = menu.score_img
-    ? `<img src="${menu.score_img}" alt="평점">`
-    : ''
-  card.innerHTML = `
-    <img src="${menu.img}" alt="${menu.name}">
-    <h2>${menu.shop}</h2>
-    <h3>${menu.name}</h3>
-    <p>${menu.mainMenu}</p>
-    <p>${menu.price}</p>
-    ${scoreImgTag}
-  `
-  card.classList.remove('hidden')
-  card.classList.add('show')
+  card.classList.remove('show')
+
+  setTimeout(() => {
+    const scoreImgTag = menu.score_img
+      ? `<img src="${menu.score_img}" alt="평점">`
+      : ''
+
+    card.innerHTML = `
+      <img src="${menu.img}" alt="${menu.name}">
+      <h2>${menu.shop}</h2>
+      <h3>${menu.name}</h3>
+      <p>${menu.mainMenu}</p>
+      <p>${menu.price}</p>
+      ${scoreImgTag}
+    `
+    card.classList.remove('hidden')
+
+    requestAnimationFrame(() => {
+      card.classList.add('show')
+    })
+  }, 150)
+}
+
+function addNewMenu() {
+  const category = document.getElementById('new-category').value
+  const shop = document.getElementById('new-shop').value.trim()
+  const name = document.getElementById('new-name').value.trim()
+  const mainMenu = document.getElementById('new-mainMenu').value.trim()
+  let price = document.getElementById('new-price').value.trim()
+
+  if (!shop || !name || !mainMenu || !price) {
+    alert('모든 항목을 입력해야 메뉴를 추가할 수 있습니다!')
+    return
+  }
+
+  if (!price.endsWith('원')) {
+    price += '원'
+  }
+
+  const newMenuObject = {
+    shop: shop,
+    name: name,
+    mainMenu: mainMenu,
+    img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=500&auto=format&fit=crop',
+    price: price,
+    score_img: '',
+    category: category,
+  }
+
+  menus.push(newMenuObject)
+  customMenus.push(newMenuObject)
+  localStorage.setItem('myCustomMenus', JSON.stringify(customMenus))
+
+  alert(
+    `🎉 [${category}] ${mainMenu} 메뉴가 브라우저에 영구 저장되었습니다!\n이제 페이지를 새로고침 하거나 나갔다 들어와도 계속 유지됩니다.`,
+  )
+
+  document.getElementById('new-shop').value = ''
+  document.getElementById('new-name').value = ''
+  document.getElementById('new-mainMenu').value = ''
+  document.getElementById('new-price').value = ''
+
+  const activeBtn = Array.from(document.querySelectorAll('.cat-btn')).find(
+    (btn) => btn.textContent === selectedCategory,
+  )
+  if (activeBtn) selectCategory(selectedCategory, activeBtn)
 }
 
 function generateNameInputs() {
@@ -666,9 +734,7 @@ function playLadderMotion(startLineIdx) {
   linesContainer.appendChild(ball)
 
   let currentColumn = startLineIdx
-
   let currentTop = 0
-
   let pathPoints = []
   pathPoints.push({ col: currentColumn, top: currentTop })
 
@@ -748,7 +814,6 @@ function playLadderMotion(startLineIdx) {
     }
 
     step++
-
     setTimeout(applyNextPosition, 420)
   }
 
@@ -782,9 +847,32 @@ function showFinalReceipt() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+  updateDietLink()
+
+  const wholeBtns = document.querySelectorAll('.cat-btn')
+  const defaultBtn = Array.from(wholeBtns).find((b) => b.textContent === '전체')
+  if (defaultBtn) defaultBtn.classList.add('active-cat')
+
   const urlParams = new URLSearchParams(window.location.search)
   const tab = urlParams.get('tab')
   if (tab) {
     showSection(tab)
+  }
+
+  const mobileMenu = document.getElementById('mobile-menu')
+  const navMenu = document.querySelector('nav ul')
+
+  if (mobileMenu && navMenu) {
+    mobileMenu.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active')
+      navMenu.classList.toggle('active')
+    })
+
+    document.querySelectorAll('nav ul a').forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active')
+        navMenu.classList.remove('active')
+      })
+    })
   }
 })

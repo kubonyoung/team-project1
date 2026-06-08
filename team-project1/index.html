@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>점심 메뉴 추천</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <a href="index.html"> <img src="img/다운로드.jfif" alt="로고" /></a>
+        <nav>
+          <ul>
+            <li>
+              <a
+                href="https://joongbu.ac.kr/diet/index.es?mid=a10406030000&p=C&d=2026-04-07"
+                >오늘의 학식</a
+              >
+            </li>
+            <li id="divider">|</li>
+            <li>
+              <a href="#" onclick="showSection('recommend')">메뉴 추천</a>
+            </li>
+            <li id="divider">|</li>
+            <li>
+              <a href="#" onclick="showSection('dutch')">랜덤 정산하기</a>
+            </li>
+            <li id="divider">|</li>
+            <li><a href="team.html">팀소개</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section id="recommend-section" class="content-section">
+        <h2>오늘 점심 뭐 먹을까?</h2>
+
+        <div
+          class="category-tabs"
+          style="
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+          "
+        >
+          <button
+            onclick="selectCategory('전체', this)"
+            class="cat-btn active"
+            style="
+              padding: 0.5rem 1rem;
+              font-size: 0.95rem;
+              font-weight: bold;
+              border: 1px solid #a90120;
+              border-radius: 20px;
+              background-color: #a90120;
+              color: white;
+              cursor: pointer;
+              transition: all 0.2s;
+            "
+          >
+            전체
+          </button>
+          <button
+            onclick="selectCategory('한식', this)"
+            class="cat-btn"
+            style="
+              padding: 0.5rem 1rem;
+              font-size: 0.95rem;
+              font-weight: bold;
+              border: 1px solid #ccc;
+              border-radius: 20px;
+              background-color: white;
+              color: #333;
+              cursor: pointer;
+              transition: all 0.2s;
+            "
+          >
+            한식
+          </button>
+          <button
+            onclick="selectCategory('중식', this)"
+            class="cat-btn"
+            style="
+              padding: 0.5rem 1rem;
+              font-size: 0.95rem;
+              font-weight: bold;
+              border: 1px solid #ccc;
+              border-radius: 20px;
+              background-color: white;
+              color: #333;
+              cursor: pointer;
+              transition: all 0.2s;
+            "
+          >
+            중식
+          </button>
+          <button
+            onclick="selectCategory('양식', this)"
+            class="cat-btn"
+            style="
+              padding: 0.5rem 1rem;
+              font-size: 0.95rem;
+              font-weight: bold;
+              border: 1px solid #ccc;
+              border-radius: 20px;
+              background-color: white;
+              color: #333;
+              cursor: pointer;
+              transition: all 0.2s;
+            "
+          >
+            양식
+          </button>
+          <button
+            onclick="selectCategory('일식', this)"
+            class="cat-btn"
+            style="
+              padding: 0.5rem 1rem;
+              font-size: 0.95rem;
+              font-weight: bold;
+              border: 1px solid #ccc;
+              border-radius: 20px;
+              background-color: white;
+              color: #333;
+              cursor: pointer;
+              transition: all 0.2s;
+            "
+          >
+            일식
+          </button>
+          <button
+            onclick="selectCategory('분식', this)"
+            class="cat-btn"
+            style="
+              padding: 0.5rem 1rem;
+              font-size: 0.95rem;
+              font-weight: bold;
+              border: 1px solid #ccc;
+              border-radius: 20px;
+              background-color: white;
+              color: #333;
+              cursor: pointer;
+              transition: all 0.2s;
+            "
+          >
+            분식
+          </button>
+        </div>
+
+        <p>
+          버튼을 눌러 우리 팀이 엄선한 맛집 메뉴를 무작위로 추천받아 보세요!
+        </p>
+        <button class="btn-main" onclick="recommendMenu()">
+          메뉴 추천받기
+        </button>
+        <div id="result-card" class="menu-card hidden"></div>
+      </section>
+
+      <section id="dutch-section" class="content-section hidden">
+        <h2>랜덤 사다리타기 정산</h2>
+        <p>금액과 인원을 입력하면 랜덤으로 금액을 정산합니다!</p>
+
+        <div class="input-form">
+          <div class="input-row">
+            <label for="total-price">총 정산 금액 : </label>
+            <input type="number" id="total-price" placeholder="예: 50000" /> 원
+          </div>
+          <div class="input-row">
+            <label for="total-people">참여 인원수 : </label>
+            <input
+              type="number"
+              id="total-people"
+              placeholder="예: 4"
+              oninput="generateNameInputs()"
+            />
+            명
+          </div>
+
+          <div id="name-inputs-container" class="name-container"></div>
+
+          <button class="btn-main" onclick="startLadderGame()">
+            사다리 생성하기
+          </button>
+        </div>
+
+        <div id="ladder-game-container" class="ladder-box hidden">
+          <p class="ladder-guide-text">
+            <strong>이름을 클릭</strong>하면 사다리타기 게임이 시작됩니다.
+          </p>
+          <div id="ladder-visual" class="ladder-visual-board">
+            <div id="ladder-lines-container" class="ladder-lines-area"></div>
+          </div>
+          <div id="dutch-result" class="menu-card hidden"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2026 점심 메뉴 추천 프로젝트</p>
+    </footer>
+    <script src="main.js"></script>
+  </body>
+</html>
